@@ -25,7 +25,8 @@ object RunGenerateMaven {
 //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven-archive:jar:2.2.2",
     "commons-io:commons-io:jar:2.5",
     "commons-codec:commons-codec:jar:1.10",
-    "jartree:jartree:jar:1.0.0-SNAPSHOT",
+    "jartree:jartree-api:jar:1.0.0-SNAPSHOT",
+    "jartree:jartree-impl:jar:1.0.0-SNAPSHOT",
     "org.slf4j:slf4j-api:jar:1.7.21",
     "com.typesafe.scala-logging:scala-logging_2.11:jar:3.4.0",
     "com.typesafe.akka:akka-stream-experimental_2.11:jar:2.0.4",
@@ -64,9 +65,9 @@ object RunGenerateMaven {
         s"""
            |package mvn
            |
-           |object `${canonical}` extends _root_.jartree.ClassLoaderKey(
-           |  jar = _root_.jartree.MavenJarKey("${canonical}"),
-           |  parents = collection.immutable.Seq(
+           |object `${canonical}` extends _root_.jartree.util.CaseClassLoaderKey(
+           |  jar = _root_.jartree.util.MavenJarKeyImpl("${canonical}"),
+           |  dependencies = collection.immutable.Seq(
            |    ${deps.map(d => s"`${d.getCoordinate.toCanonicalForm}`").mkString(",\n    ")}
            |  )
            |)

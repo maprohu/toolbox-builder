@@ -3,6 +3,7 @@ package toolbox.builder
 import java.io.File
 
 import _root_.jartree.ClassLoaderKey
+import jartree.util.{CaseClassLoaderKey, CaseJarKey, MavenJarKeyImpl}
 import sbt.io.IO
 
 import scala.xml.PrettyPrinter
@@ -42,11 +43,24 @@ import scala.xml.PrettyPrinter
 //  override def deps: Seq[Module] = module.deps
 //}
 
+trait ModuleId
+trait ModuleVersion extends Comparable[ModuleVersion]
+case class MavenModuleId(
+  groupId: String,
+  artifactId: String,
+  classifier: Option[String]
+) extends ModuleId
+case class HashModuleId(
+  hash: Seq[Byte]
+) extends ModuleId
+
+case class MavenModuleVersion(
+  version: Version
+)
+
 class Module(
-  val groupId: String,
-  val artifactId: String,
-  val version: String,
-  val classifier: Option[String],
+  val moduleId: ModuleId,
+  val version: ModuleVersion,
   val deps: Seq[Module],
   val provided : Boolean = false
 )
@@ -80,7 +94,19 @@ object Module {
     module.deps,
     true
   )
-  implicit def classLoaderKey2Module(clk: ClassLoaderKey) : Module = {
+
+  def jarKey2ModuleId(jarKey: CaseJarKey) = {
+    jarKey match {
+      case m : MavenJarKeyImpl =>
+
+
+    }
+
+
+  }
+
+  implicit def classLoaderKey2Module(clk: CaseClassLoaderKey) : Module = {
+
     new Module(
       clk.jar.groupId,
       clk.jar.artifactId,
