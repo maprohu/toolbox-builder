@@ -16,7 +16,7 @@ object RunToolbox8 {
   )
 
   val Modules = Seq(
-//    Toolbox8Modules.Common,
+    Toolbox8Modules.JarTree,
     Servlet31Modules.SingleApi,
     Servlet31Modules.RunApi,
     Servlet31Modules.SampleRunner,

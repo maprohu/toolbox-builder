@@ -9,6 +9,15 @@ object Toolbox8Modules {
 
   implicit val Root = RootModuleContainer("toolbox8")
 
+  object JarTree extends ScalaModule(
+    "jartree",
+    "1.0.0-SNAPSHOT",
+    mvn.`jartree:jartree-impl:jar:1.0.0-SNAPSHOT`,
+    mvn.`com.typesafe.akka:akka-stream_2.11:2.4.9`,
+    mvn.`org.scala-lang.modules:scala-pickling_2.11:jar:0.10.1`,
+    mvn.`jartree:jartree-util:jar:1.0.0-SNAPSHOT`
+  )
+
 //  object Common extends ScalaModule(
 //    "common",
 //    "1.0.0-SNAPSHOT",

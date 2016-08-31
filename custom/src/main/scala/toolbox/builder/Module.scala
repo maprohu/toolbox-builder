@@ -140,7 +140,7 @@ object Module {
   implicit def classLoaderKey2Module(clk: CaseClassLoaderKey) : Module = {
     new Module(
       jarKey2ModuleIdVersion(clk.jar),
-      clk.dependencies.map(classLoaderKey2Module)
+      clk.dependenciesSeq.map(classLoaderKey2Module)
     )
   }
 
@@ -217,6 +217,16 @@ object Module {
             <artifactId>{place.artifactId}</artifactId>
             <version>1.0.0</version>
             <packaging>pom</packaging>
+
+            <build>
+              <plugins>
+                <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-dependency-plugin</artifactId>
+                  <version>2.10</version>
+                </plugin>
+              </plugins>
+            </build>
 
             <modules>
               {
