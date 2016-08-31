@@ -14,6 +14,7 @@ object RunGenerateMaven {
   val artifacts = Seq(
     "com.typesafe.akka:akka-stream_2.11:2.4.9",
     "javax.servlet:servlet-api:jar:2.5",
+    "javax.servlet:javax.servlet-api:jar:3.1.0",
     "org.scala-lang:scala-library:jar:2.11.8",
     "com.lihaoyi:scalarx_2.11:jar:0.3.1",
 //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api:jar:2.2.2",
