@@ -3,7 +3,9 @@ package toolbox.builder
 import java.io.File
 
 import _root_.jartree.ClassLoaderKey
-import jartree.util.{CaseClassLoaderKey, CaseJarKey, MavenJarKeyImpl}
+import jartree.util.{CaseClassLoaderKey, CaseJarKey, HashJarKeyImpl, MavenJarKeyImpl}
+import org.eclipse.aether.util.version.GenericVersionScheme
+import org.eclipse.aether.version.Version
 import sbt.io.IO
 
 import scala.xml.PrettyPrinter
@@ -44,7 +46,10 @@ import scala.xml.PrettyPrinter
 //}
 
 trait ModuleId
-trait ModuleVersion extends Comparable[ModuleVersion]
+trait ModuleVersion extends Comparable[ModuleVersion] {
+  def moduleId : ModuleId
+}
+
 case class MavenModuleId(
   groupId: String,
   artifactId: String,
@@ -54,12 +59,27 @@ case class HashModuleId(
   hash: Seq[Byte]
 ) extends ModuleId
 
+case class HashModuleVersion(
+  moduleId: HashModuleId
+) extends ModuleVersion {
+  override def compareTo(o: ModuleVersion): Int = {
+    require(o.asInstanceOf[HashModuleVersion].moduleId == moduleId)
+    0
+  }
+}
 case class MavenModuleVersion(
+  mavenModuleId: MavenModuleId,
   version: Version
-)
+) extends ModuleVersion {
+  override def compareTo(o: ModuleVersion): Int = {
+    val mmv = o.asInstanceOf[MavenModuleVersion]
+    require(moduleId == mmv.moduleId)
+    version.compareTo(mmv.version)
+  }
+  override def moduleId: MavenModuleId = mavenModuleId
+}
 
 class Module(
-  val moduleId: ModuleId,
   val version: ModuleVersion,
   val deps: Seq[Module],
   val provided : Boolean = false
@@ -87,18 +107,30 @@ object Module {
 //    )
 //  }
   def provided(module: Module) : Module = new Module(
-    module.groupId,
-    module.artifactId,
     module.version,
-    module.classifier,
     module.deps,
     true
   )
 
-  def jarKey2ModuleId(jarKey: CaseJarKey) = {
+  val versionScheme = new GenericVersionScheme
+
+  def jarKey2ModuleIdVersion(jarKey: CaseJarKey) : ModuleVersion = {
     jarKey match {
       case m : MavenJarKeyImpl =>
-
+        MavenModuleVersion(
+          MavenModuleId(
+            m.groupId,
+            m.artifactId,
+            m.classifierOpt
+          ),
+          versionScheme.parseVersion(m.version)
+        )
+      case h : HashJarKeyImpl =>
+        HashModuleVersion(
+          HashModuleId(
+            h.hashSeq
+          )
+        )
 
     }
 
@@ -106,22 +138,22 @@ object Module {
   }
 
   implicit def classLoaderKey2Module(clk: CaseClassLoaderKey) : Module = {
-
     new Module(
-      clk.jar.groupId,
-      clk.jar.artifactId,
-      clk.jar.version,
-      clk.jar.classifier,
-      clk.parents.map(classLoaderKey2Module)
+      jarKey2ModuleIdVersion(clk.jar),
+      clk.dependencies.map(classLoaderKey2Module)
     )
   }
 
   implicit def namedModuleToModule(namedModule: NamedModule) : Module = {
     new Module(
-      namedModule.container.root.groupId,
-      namedModule.path.mkString("-"),
-      namedModule.version,
-      None,
+      MavenModuleVersion(
+        MavenModuleId(
+          namedModule.container.root.groupId,
+          namedModule.path.mkString("-"),
+          None
+        ),
+        versionScheme.parseVersion(namedModule.version)
+      ),
       namedModule.deps
     )
   }
@@ -282,13 +314,14 @@ object Module {
               {
                 module
                   .deps
-                  .map({ dep =>
+                  .map(m => (m.version, m.provided))
+                  .collect({ case (dep : MavenModuleVersion, provided) =>
                     <dependency>
-                      <groupId>{dep.groupId}</groupId>
-                      <artifactId>{dep.artifactId}</artifactId>
-                      <version>{dep.version}</version>
-                      {dep.classifier.map(c => <classifier>c</classifier>).toSeq}
-                      {if (dep.provided) <scope>provided</scope> else Seq()}
+                      <groupId>{dep.moduleId.groupId}</groupId>
+                      <artifactId>{dep.moduleId.artifactId}</artifactId>
+                      <version>{dep.version.toString}</version>
+                      {dep.moduleId.classifier.map(c => <classifier>c</classifier>).toSeq}
+                      {if (provided) <scope>provided</scope> else Seq()}
                     </dependency>
                   })
               }

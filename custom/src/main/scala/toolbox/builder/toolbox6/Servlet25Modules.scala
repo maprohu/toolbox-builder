@@ -20,7 +20,7 @@ object Servlet25Modules {
     "1.0.0-SNAPSHOT",
     SingleApi,
     mvn.`javax.servlet:servlet-api:jar:2.5`,
-    mvn.`jartree:jartree:jar:1.0.0-SNAPSHOT`
+    mvn.`jartree:jartree-api:jar:1.0.0-SNAPSHOT`
   )
 
   object Webapp extends ScalaModule(
@@ -29,7 +29,7 @@ object Servlet25Modules {
     SingleApi,
     RunApi,
     Toolbox6Modules.Common,
-    mvn.`jartree:jartree:jar:1.0.0-SNAPSHOT`,
+    mvn.`jartree:jartree-impl:jar:1.0.0-SNAPSHOT`,
     mvn.`com.typesafe.scala-logging:scala-logging_2.11:jar:3.4.0`,
     mvn.`com.lihaoyi:upickle_2.11:jar:0.4.2`,
     mvn.`org.scala-sbt:io_2.11:jar:1.0.0-M6`
