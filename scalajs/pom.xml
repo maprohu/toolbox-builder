@@ -8,25 +8,11 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>toolbox-builder-scalajs</artifactId>
-    <packaging>jar</packaging>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.lihaoyi</groupId>
-            <artifactId>scalatags_2.11</artifactId>
-            <version>0.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scala-sbt</groupId>
-            <artifactId>io_2.11</artifactId>
-            <version>1.0.0-M3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.21</version>
-        </dependency>
-    </dependencies>
+    <packaging>pom</packaging>
+    <modules>
+        <module>packager</module>
+        <module>analyzer</module>
+    </modules>
 
 
 </project>

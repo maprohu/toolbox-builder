@@ -1,0 +1,9 @@
+# in vis directory
+
+npm install --global babel-cli
+npm update
+babel --presets es2015 index*.js -d es5
+babel --presets es2015 lib -d es5/lib
+
+
+# npm install  babel-preset-es2015 --save-dev
