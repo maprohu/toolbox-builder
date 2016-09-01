@@ -16,9 +16,11 @@ object RunVis {
     val parser = new RequireParser
 
     Seq(
-      ("Graph3d", "index-graph3d"),
-      ("Network", "index-network"),
-      ("TimelineGraph2d", "index-timeline-graph2d")
+//      ("Graph3d", "index-graph3d"),
+//      ("Network", "index-network"),
+//      ("TimelineGraph2d", "index-timeline-graph2d")
+      ("DataView", "lib/DataSet"),
+      ("DataView", "lib/DataView")
     ).foreach {
       case (name, filebase) =>
         val jsFile = new File(RootDir, s"${filebase}.js").getCanonicalFile

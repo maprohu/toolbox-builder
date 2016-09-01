@@ -1,7 +1,7 @@
 package toolbox.builder.scalajs.analyzer
 
 import java.io.{File, FileInputStream, InputStreamReader}
-import javax.script.{Invocable, ScriptEngineManager, SimpleScriptContext}
+import javax.script.{Invocable, ScriptContext, ScriptEngineManager, SimpleScriptContext}
 
 import jdk.nashorn.api.scripting.ScriptObjectMirror
 
@@ -10,14 +10,22 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror
   */
 object RequireParser {
 
+  var RequireDelegateVariableName = "_require_delegate"
+
+}
+
+trait RequireDelegate {
+  def require(name: String) : AnyRef
 }
 
 class RequireParser {
+  import RequireParser._
 
   val moduleMap = scala.collection.mutable.Map.empty[File, ScriptObjectMirror]
   val manager = new ScriptEngineManager()
+  val engine = manager.getEngineByName("nashorn")
 
-  def run(file: File) : ScriptObjectMirror = {
+  def run(file: File) : ScriptObjectMirror = synchronized {
     val jsFile = file.getCanonicalFile
 
     val module = moduleMap
@@ -25,44 +33,33 @@ class RequireParser {
       .getOrElse({
         val fullPath = jsFile.getCanonicalPath
         println(fullPath)
-        val engine = manager.getEngineByName("nashorn")
-//        val ctx = new SimpleScriptContext
-//        engine.setContext(ctx)
-        val createFunctionName = "_createCallbackFunction"
-        engine.eval(
-          s"""function ${createFunctionName}(name, className, firstParam) {
-             |  var callbackClass = Java.type(className);
-             |  this[name] = function() {
-             |    callbackClass.call(firstParam, arguments);
-             |  }
+        val ctx = new SimpleScriptContext
+        ctx.setAttribute(
+          RequireDelegateVariableName,
+          new RequireDelegate {
+            override def require(path: String): AnyRef = {
+              val importFile = new File(jsFile.getParentFile, s"${path}.js")
+              run(importFile)
+            }
+          },
+          ScriptContext.ENGINE_SCOPE
+        )
+        val module = engine.eval(
+          s"""function require(path) {
+             |  ${RequireDelegateVariableName}.require(path).exports
              |}
              |
-             |exports = {}
-             |module = {
-             |  exports: exports
+             |var exports = {}
+             |var module = {
+             |  "exports": exports
              |}
-           """.stripMargin
-        )
+             |
+             |module
+           """.stripMargin,
+          ctx
+        ).asInstanceOf[ScriptObjectMirror]
 
-        val value = engine.get("module").asInstanceOf[ScriptObjectMirror]
-
-        moduleMap.update(jsFile, value)
-
-        val cb = new NashornCallback {
-          override def apply(value: ScriptObjectMirror): AnyRef = {
-            val path = value.getSlot(0).asInstanceOf[String]
-            val importFile = new File(jsFile.getParentFile, s"${path}.js")
-            run(importFile).get("exports")
-          }
-        }
-
-        engine.asInstanceOf[Invocable].invokeFunction(
-          createFunctionName,
-          "require",
-          classOf[NashornStaticCallback].getName,
-          cb
-        )
-
+        moduleMap.update(jsFile, module)
 
         val is = new InputStreamReader(
           new FileInputStream(
@@ -70,17 +67,12 @@ class RequireParser {
           )
         )
         engine.eval(
-          is
+          is,
+          ctx
         )
         is.close()
 
-//        val value = engine.asInstanceOf[Invocable].invokeFunction(
-//          returnExportsFunctionName
-//        ).asInstanceOf[ScriptObjectMirror]
-
-
-        value
-
+        module
       })
 
     module
