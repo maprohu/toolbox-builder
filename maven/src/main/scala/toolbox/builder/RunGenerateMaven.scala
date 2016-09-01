@@ -33,7 +33,8 @@ object RunGenerateMaven {
     "com.lihaoyi:upickle_2.11:jar:0.4.2",
     "org.scala-sbt:io_2.11:jar:1.0.0-M6",
     "com.jsuereth:scala-arm_2.11:jar:1.4",
-    "org.scala-lang.modules:scala-pickling_2.11:jar:0.10.1"
+    "org.scala-lang.modules:scala-pickling_2.11:jar:0.10.1",
+    "com.typesafe.akka:akka-http-experimental_2.11:jar:2.4.9"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
