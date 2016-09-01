@@ -15,11 +15,18 @@ object RunDeployOrganizer {
     val SourceDir = new File("../emsa-managed/organizer")
     val TargetDir = new File("../emsa-managed/organizer/core/src/main/resources/emsamg/organizer/core/html")
 
+    import scalatags.Text.all._
     BuildScalaJs.build(
       TargetDir,
       "Organizer",
       FileBaseName,
-      SourceDir
+      SourceDir,
+      link(
+        rel := "stylesheet",
+        `type` := "text/css",
+        href := "vis/dist/vis.min.css"
+      )
+
     )
 
 

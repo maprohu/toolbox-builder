@@ -13,7 +13,8 @@ object BuildScalaJs {
     TargetDir: File,
     Title: String,
     FileBaseName: String,
-    SourceProjectDir: File
+    SourceProjectDir: File,
+    headers: scalatags.Text.Modifier*
   ) : Unit = {
 
 
@@ -49,7 +50,8 @@ object BuildScalaJs {
           ),
           tag("title")(
             Title
-          )
+          ),
+          headers
         ),
         body(
           script(
