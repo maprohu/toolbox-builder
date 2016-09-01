@@ -52,7 +52,7 @@ class RequireParser {
           override def apply(value: ScriptObjectMirror): AnyRef = {
             val path = value.getSlot(0).asInstanceOf[String]
             val importFile = new File(jsFile.getParentFile, s"${path}.js")
-            run(importFile)
+            run(importFile).get("exports")
           }
         }
 
@@ -84,7 +84,9 @@ class RequireParser {
       })
 
     module
-      .get("exports").asInstanceOf[ScriptObjectMirror]
+
+//    module
+//      .get("exports").asInstanceOf[ScriptObjectMirror]
 
   }
 
