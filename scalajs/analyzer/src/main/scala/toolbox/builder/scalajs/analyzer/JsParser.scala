@@ -23,22 +23,23 @@ class JsParser {
   val errors: ErrorManager = new ErrorManager
   val context: Context = new Context(options, errors, Thread.currentThread.getContextClassLoader)
 
-  def parse(jsFile: File)  = {
+  def parse(jsFile: File) : (Source, Iterable[Statement]) = {
     val source: Source = Source.sourceFor(jsFile.getName, jsFile)
     val parser: Parser = new Parser(context.getEnv, source, errors)
     val functionNode: FunctionNode = parser.parse
     val block: Block = functionNode.getBody
-    block.getStatements.to[Iterable].map(s => (source, s))
+    (source, block.getStatements.to[Iterable])
   }
 }
 
 object JsParser {
 
-  def parse(files: Iterable[File])  = {
+  def parse(files: Iterable[File]) : Iterable[(Source, Statement)]  = {
     val parser = new JsParser
 
     files.flatMap({ jsFile =>
-      parser.parse(jsFile)
+      val (source, stm) = parser.parse(jsFile)
+      stm.map(s => (source, s))
     })
   }
 

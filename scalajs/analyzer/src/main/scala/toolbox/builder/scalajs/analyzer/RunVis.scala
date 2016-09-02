@@ -13,18 +13,24 @@ object RunVis {
   def main(args: Array[String]): Unit = {
     val RootDir = new File("../toolbox-builder/scalajs/facades/vis/es5")
 
-    val parser = new RequireParser
+    val parser = new JsParser
 
     Seq(
 //      ("Graph3d", "index-graph3d"),
 //      ("Network", "index-network"),
 //      ("TimelineGraph2d", "index-timeline-graph2d")
-      ("DataView", "lib/DataSet"),
-      ("DataView", "lib/DataView")
+      ("DataSet", "lib/DataSet")
+//      ("DataView", "lib/DataView")
     ).foreach {
       case (name, filebase) =>
         val jsFile = new File(RootDir, s"${filebase}.js").getCanonicalFile
-        parser.run(jsFile)
+
+        val (source, stm) = parser.parse(
+          jsFile
+        )
+
+
+
     }
   }
 
