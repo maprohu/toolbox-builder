@@ -4,6 +4,7 @@ import java.io.File
 
 import sandbox8.builder.RunEmsaManaged
 import sandbox8.builder.emsamg.OrganizerModules
+import sbt.io.IO
 import toolbox.builder.scalajs.analyzer.generator.SjsGenerator
 import toolbox.builder.scalajs.analyzer.jsmodel.JsClassTrait
 import toolbox.builder.scalajs.analyzer.model.{QualifiedName, _}
@@ -91,7 +92,8 @@ class SimpleProcessor(
   }
 
   def custom(
-    generatedDir: File
+    generatedDir: File,
+    options: Seq[Class[_]]
   ) = {
 
     process({ ctx =>
@@ -117,6 +119,12 @@ class SimpleProcessor(
 
     })
 
+
+    OptionsProcessor.process(
+      generatedDir,
+      options
+    )
+
   }
 
   def process(proc: ClassContext => Unit) = {
@@ -141,6 +149,7 @@ class SimpleProcessor(
         })
 
     })
+
 
   }
 
