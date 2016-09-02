@@ -20,6 +20,7 @@ object RunVisCustom {
     classOf[NetworkEdgeOptions],
     classOf[NetworkEdgeArrowsOptions],
     classOf[NetworkEdgeArrowHeadOptions],
+    classOf[NetworkNodeOptions],
     classOf[DefaultNode],
     classOf[DefaultEdge]
   )
