@@ -24,11 +24,6 @@ object OptionsProcessor {
       val packages :+ className =
         optionsClass.getName.split('.').to[Seq]
 
-      val qn = QualifiedName(
-        packages,
-        className
-      )
-
       val targetDir = new File(
         generatedDir,
         packages.mkString("/")
