@@ -12,6 +12,7 @@
     <modules>
         <module>packager</module>
         <module>analyzer</module>
+        <module>custom</module>
     </modules>
 
 

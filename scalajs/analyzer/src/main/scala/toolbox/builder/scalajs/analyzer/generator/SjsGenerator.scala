@@ -16,6 +16,7 @@ object SjsGenerator {
   def generateClass(
     rootDir: File,
     jsClass: JsClass,
+    packagePrivate: Boolean,
     overwrite: Boolean
   ) : Unit = {
     val packagePath =
@@ -97,6 +98,19 @@ object SjsGenerator {
         })
         .getOrElse(superClassString)
 
+    val classModifierString =
+      if (packagePrivate)
+        s"private [${jsClass.scalaName.parent.get.identifier}] "
+      else
+        ""
+
+    val comments = jsClass
+      .comments
+      .map({ c =>
+        s"""// ${c}"""
+      })
+      .to[Seq]
+
     val lines : Seq[String] =
       Seq(
         s"""package ${packagePath.mkString(".")}
@@ -108,8 +122,9 @@ object SjsGenerator {
       jsClass.jsName.map({ jsName =>
         s"""@js.annotation.JSName("${jsName.toIterable.mkString(".")}")"""
       }) ++
+      comments ++
       Seq(
-        s"""class ${jsClass.scalaName.identifier} extends ${commentedSuperClassString} {
+        s"""${classModifierString}class ${jsClass.scalaName.identifier} extends ${commentedSuperClassString} {
            |${internals.mkString("\n\n")}
            |}
        """.stripMargin
