@@ -15,7 +15,8 @@ import scala.collection.immutable._
 object RunVisCustom {
 
   val options = Seq(
-    classOf[NetworkData]
+    classOf[NetworkData],
+    classOf[NetworkOptions]
   )
 
   def main(args: Array[String]): Unit = {
