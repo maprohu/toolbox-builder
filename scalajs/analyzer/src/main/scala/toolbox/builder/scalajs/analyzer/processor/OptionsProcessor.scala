@@ -71,7 +71,7 @@ object OptionsProcessor {
         fields
           .map({
             case (name, _, _) =>
-              s"    ${name} = ${name}"
+              s"    ${name} = ${name}.asInstanceOf[scala.scalajs.js.Any]"
           })
           .mkString(",\n")
 

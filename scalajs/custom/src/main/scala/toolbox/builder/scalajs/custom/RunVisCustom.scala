@@ -5,7 +5,7 @@ import java.io.File
 import sandbox8.builder.RunEmsaManaged
 import sandbox8.builder.emsamg.OrganizerModules
 import toolbox.builder.scalajs.analyzer.RunVisRaw
-import visfacade.classes.vis.{NetworkData, NetworkOptions}
+import visfacade.classes.vis._
 
 import scala.collection.immutable._
 
@@ -16,7 +16,12 @@ object RunVisCustom {
 
   val options = Seq(
     classOf[NetworkData],
-    classOf[NetworkOptions]
+    classOf[NetworkOptions],
+    classOf[NetworkEdgeOptions],
+    classOf[NetworkEdgeArrowsOptions],
+    classOf[NetworkEdgeArrowHeadOptions],
+    classOf[DefaultNode],
+    classOf[DefaultEdge]
   )
 
   def main(args: Array[String]): Unit = {
