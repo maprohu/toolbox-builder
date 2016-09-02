@@ -44,6 +44,8 @@ object BuildScalaJs {
     val indexHtml = {
       import scalatags.Text.all._
       html(
+        height := 100.pct,
+        margin := 0,
         head(
           meta(
             charset := "UTF-8"
@@ -54,6 +56,8 @@ object BuildScalaJs {
           headers
         ),
         body(
+          height := 100.pct,
+          margin := 0,
           script(
             `type` := "text/javascript",
             src := s"./${DepsFileName}"

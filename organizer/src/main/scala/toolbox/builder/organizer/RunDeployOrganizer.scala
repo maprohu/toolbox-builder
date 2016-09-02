@@ -2,7 +2,7 @@ package toolbox.builder.organizer
 
 import java.io.File
 
-import toolbox.builder.scalajs.BuildScalaJs
+import toolbox.builder.scalajs.packager.BuildScalaJs
 
 /**
   * Created by pappmar on 31/08/2016.

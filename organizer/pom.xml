@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>toolbox-builder</groupId>
-            <artifactId>toolbox-builder-scalajs</artifactId>
+            <artifactId>toolbox-builder-scalajs-packager</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
