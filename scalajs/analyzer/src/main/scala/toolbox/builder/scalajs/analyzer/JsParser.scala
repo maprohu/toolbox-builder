@@ -34,6 +34,11 @@ class JsParser {
 
 object JsParser {
 
+  def parse(jsFile: File) : (Source, Iterable[Statement]) = {
+    val parser = new JsParser
+    parser.parse(jsFile)
+  }
+
   def parse(files: Iterable[File]) : Iterable[(Source, Statement)]  = {
     val parser = new JsParser
 

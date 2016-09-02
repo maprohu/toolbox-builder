@@ -1,6 +1,6 @@
 package toolbox.builder.scalajs.analyzer.model
 
-import toolbox.builder.scalajs.analyzer.model.SJSModel.{Identifier, QualifiedName}
+import toolbox.builder.scalajs.analyzer.model.SJSModel.{Comment, Identifier}
 
 import scala.collection.immutable._
 
@@ -10,18 +10,43 @@ import scala.collection.immutable._
 object SJSModel {
 
   type Identifier = String
-  type QualifiedName = Path
-
+  type Comment = String
 
 }
 
-case class Path(
+case class QualifiedName(
   identifier: Identifier,
-  parent: Option[Path]
-)
+  parent: Option[QualifiedName]
+) {
+  def toIterable : Iterable[Identifier] = parent.to[Seq].flatMap(_.toIterable) :+ identifier
+  def toDotted = toIterable.mkString(".")
+}
+
+object QualifiedName {
+
+  def apply(seq: Iterable[Identifier], last: Identifier) : QualifiedName = {
+    QualifiedName(
+      last,
+      if (seq.isEmpty) {
+        None
+      } else {
+        Some(
+          QualifiedName(
+            seq.init,
+            seq.last
+          )
+        )
+      }
+    )
+  }
+
+}
+
+
+
 
 case class JsType(
-
+  rendered: String = "js.Any"
 )
 
 case class JsParameter(
@@ -37,13 +62,14 @@ case class JsField(
 case class JsMethod(
   name: String,
   returnType: JsType,
-  parameters: Seq[JsParameter]
+  parameters: Iterable[JsParameter],
+  comments: Iterable[Comment]
 )
 
 trait JsRefType {
   def scalaName: QualifiedName
-  def methods: Seq[JsMethod]
-  def fields: Seq[JsField]
+  def methods: Iterable[JsMethod]
+  def fields: Iterable[JsField]
 }
 
 
@@ -60,11 +86,14 @@ trait JsSuperTrait
 
 case class JsClass(
   scalaName: QualifiedName,
-  jsName: QualifiedName,
-  superClass: Option[JsSuperClass],
-  superTraits: Seq[JsSuperTrait],
-  methods: Seq[JsMethod],
-  fields: Seq[JsField]
+  jsName: Option[QualifiedName],
+  superClass: Option[JsType],
+  superClassComment: Option[JsType],
+  superTraits: Seq[JsType],
+  constructorArgs: Iterable[JsParameter],
+  methods: Iterable[JsMethod],
+  fields: Seq[JsField],
+  comments: Iterable[Comment]
 ) extends JsRefType
 
 

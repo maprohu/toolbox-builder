@@ -318,6 +318,25 @@ object Module {
                   <artifactId>maven-dependency-plugin</artifactId>
                   <version>2.10</version>
                 </plugin>
+                <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>build-helper-maven-plugin</artifactId>
+                  <version>1.12</version>
+                  <executions>
+                    <execution>
+                      <id>add-source</id>
+                      <phase>generate-sources</phase>
+                      <goals>
+                        <goal>add-source</goal>
+                      </goals>
+                      <configuration>
+                        <sources>
+                          <source>{"${project.build.directory}/generated-sources"}</source>
+                        </sources>
+                      </configuration>
+                    </execution>
+                  </executions>
+                </plugin>
               </plugins>
             </build>
             <dependencies>

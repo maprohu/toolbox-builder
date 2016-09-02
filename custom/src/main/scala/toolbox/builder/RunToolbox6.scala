@@ -2,7 +2,7 @@ package toolbox.builder
 
 import java.io.File
 
-import toolbox.builder.toolbox6.{Servlet25Modules, Toolbox6Modules}
+import toolbox.builder.toolbox6.{Servlet25Modules, Toolbox6Modules, VisModules}
 
 /**
   * Created by pappmar on 29/08/2016.
@@ -20,7 +20,9 @@ object RunToolbox6 {
     Servlet25Modules.SingleApi,
     Servlet25Modules.RunApi,
     Servlet25Modules.SampleRunner,
-    Servlet25Modules.Webapp
+    Servlet25Modules.Webapp,
+    VisModules.Raw
+
   )
 
   def main(args: Array[String]): Unit = {
@@ -31,5 +33,14 @@ object RunToolbox6 {
     )
 
   }
+
+  def projectDir(module: ModuleContainer) : File = {
+    module.path.tail.foldLeft(RootDir)(new File(_, _))
+  }
+
+  def projectDir(module: NamedModule) : File = {
+    new File(projectDir(module.container), module.name)
+  }
+
 
 }
