@@ -16,6 +16,8 @@ object OptionsProcessor {
 
   val mirror = ru.runtimeMirror(getClass.getClassLoader)
 
+  val OptionsValName = "_options_instance_"
+
   def process(
     generatedDir: File,
     options: Seq[Class[_]]
@@ -49,9 +51,9 @@ object OptionsProcessor {
           .decls
           .filter(_.isTerm)
           .map(_.asTerm)
-          .filter(t => t.isVal || t.isVar)
+          .filter(t => t.isVar)
           .map({ t =>
-            (t.name.toString, t.typeSignature.toString, t.typeSignature.erasure == ru.typeOf[js.UndefOr[Any]])
+            (t.name.toString.trim, t.typeSignature.toString, t.typeSignature.erasure == ru.typeOf[js.UndefOr[Any]])
           })
 
       val args =
@@ -65,10 +67,12 @@ object OptionsProcessor {
       val params =
         fields
           .map({
-            case (name, _, _) =>
-              s"    ${name} = ${name}.asInstanceOf[scala.scalajs.js.Any]"
+            case (name, _, false) =>
+              s"    ${OptionsValName}.${name} = ${name}"
+            case (name, _, true) =>
+              s"    ${name}.foreach( ${OptionsValName}.${name} = _ )"
           })
-          .mkString(",\n")
+          .mkString("\n")
 
       IO.write(
         targetFile,
@@ -77,9 +81,11 @@ object OptionsProcessor {
            |object ${factoryClassName} {
            |  def apply(
            |${args}
-           |  ) : ${className} = scala.scalajs.js.Dynamic.literal(
+           |  ) : ${className} = {
+           |    val ${OptionsValName} = scala.scalajs.js.Dynamic.literal().asInstanceOf[${className}]
            |${params}
-           |  ).asInstanceOf[${className}]
+           |    ${OptionsValName}
+           |  }
            |}
          """.stripMargin
 
