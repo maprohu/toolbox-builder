@@ -15,7 +15,8 @@ object VoiceModules {
     "1.0.0-SNAPSHOT",
     Akka8Modules.Stream,
     mvn.`com.typesafe.akka:akka-stream_2.11:jar:2.4.9`,
-    mvn.`com.github.wendykierp:JTransforms:jar:3.1`
+    mvn.`com.github.wendykierp:JTransforms:jar:3.1`,
+    mvn.`org.scala-lang.modules:scala-swing_2.11:jar:2.0.0-M2`
   )
 
 
