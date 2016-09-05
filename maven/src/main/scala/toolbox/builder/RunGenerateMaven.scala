@@ -37,7 +37,8 @@ object RunGenerateMaven {
     "com.typesafe.akka:akka-http-experimental_2.11:jar:2.4.9",
     "org.webjars.bower:vis:jar:4.16.1",
     "org.scala-js:scalajs-library_2.11:jar:0.6.12",
-    "org.scala-js:scalajs-dom_sjs0.6_2.11:jar:0.9.1"
+    "org.scala-js:scalajs-dom_sjs0.6_2.11:jar:0.9.1",
+    "com.github.wendykierp:JTransforms:jar:3.1"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
