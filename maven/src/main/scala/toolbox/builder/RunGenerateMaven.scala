@@ -39,7 +39,8 @@ object RunGenerateMaven {
     "org.scala-js:scalajs-library_2.11:jar:0.6.12",
     "org.scala-js:scalajs-dom_sjs0.6_2.11:jar:0.9.1",
     "com.github.wendykierp:JTransforms:jar:3.1",
-    "org.scala-lang.modules:scala-swing_2.11:jar:2.0.0-M2"
+    "org.scala-lang.modules:scala-swing_2.11:jar:2.0.0-M2",
+    "io.monix:monix_2.11:jar:2.0.0"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")

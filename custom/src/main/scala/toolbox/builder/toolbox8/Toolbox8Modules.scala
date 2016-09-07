@@ -16,7 +16,8 @@ object Toolbox8Modules {
     mvn.`jartree:jartree-impl:jar:1.0.0-SNAPSHOT`,
     mvn.`com.typesafe.akka:akka-stream_2.11:2.4.9`,
     mvn.`org.scala-lang.modules:scala-pickling_2.11:jar:0.10.1`,
-    mvn.`jartree:jartree-util:jar:1.0.0-SNAPSHOT`
+    mvn.`jartree:jartree-util:jar:1.0.0-SNAPSHOT`,
+    mvn.`io.monix:monix_2.11:jar:2.0.0`
   )
 
 //  object Common extends ScalaModule(
