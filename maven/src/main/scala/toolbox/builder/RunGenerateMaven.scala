@@ -40,7 +40,11 @@ object RunGenerateMaven {
     "org.scala-js:scalajs-dom_sjs0.6_2.11:jar:0.9.1",
     "com.github.wendykierp:JTransforms:jar:3.1",
     "org.scala-lang.modules:scala-swing_2.11:jar:2.0.0-M2",
-    "io.monix:monix_2.11:jar:2.0.0"
+    "io.monix:monix_2.11:jar:2.0.0",
+    "de.heikoseeberger:akka-http-json4s_2.11:jar:1.9.0",
+    "org.json4s:json4s-native_2.11:jar:3.4.0",
+    "emsa:wupdata-common-shared:jar:1.0.4-SNAPSHOT",
+    "com.github.nscala-time:nscala-time_2.11:jar:2.12.0"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
