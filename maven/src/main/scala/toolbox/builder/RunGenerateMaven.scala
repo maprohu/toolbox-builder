@@ -44,6 +44,7 @@ object RunGenerateMaven {
     "de.heikoseeberger:akka-http-json4s_2.11:jar:1.9.0",
     "org.json4s:json4s-native_2.11:jar:3.4.0",
     "emsa:wupdata-common-shared:jar:1.0.4-SNAPSHOT",
+    "emsa:wupdata-core:jar:1.0.5-SNAPSHOT",
     "com.github.nscala-time:nscala-time_2.11:jar:2.12.0"
   )
 
