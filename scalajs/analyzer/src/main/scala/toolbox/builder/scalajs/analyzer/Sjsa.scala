@@ -283,8 +283,12 @@ class Generator(specifics: Specifics) {
         }
 
         def fromBlock(block: Block) : Option[JSClass] = {
+          fromStatements(block.getStatements.toList)
+        }
+
+        def fromStatements(statements: List[Statement]) : Option[JSClass] = {
           for {
-            firstStatement <- block.getStatements.toList.headOption
+            firstStatement <- statements.headOption
             superClass <- firstStatement match {
               case es : ExpressionStatement =>
                 es.getExpression match {
@@ -303,6 +307,7 @@ class Generator(specifics: Specifics) {
                 }
               case in : IfNode =>
                 fromBlock(in.getPass)
+                  .orElse(fromStatements(statements.tail))
               case _ =>
                 None
             }
