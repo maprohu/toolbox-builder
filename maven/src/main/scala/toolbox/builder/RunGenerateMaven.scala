@@ -6,6 +6,9 @@ import java.net.URLEncoder
 import org.jboss.shrinkwrap.resolver.api.maven.{Maven, ScopeType}
 import sbt.io.IO
 
+import scala.util.Try
+import scala.util.control.NonFatal
+
 /**
   * Created by martonpapp on 28/08/16.
   */
@@ -51,7 +54,8 @@ object RunGenerateMaven {
     "io.github.lukehutch:fast-classpath-scanner:jar:2.0.3",
     "org.osgi:org.osgi.core:jar:5.0.0",
     "javax.jms:jms-api:jar:1.1-rev-1",
-    "com.oracle:wlfullclient:jar:10.3.6.0"
+    "com.oracle:wlfullclient:jar:10.3.6.0",
+    "com.lihaoyi:ammonite-ops_2.11:jar:0.7.7"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
@@ -116,7 +120,12 @@ object RunGenerateMaven {
 
 
     artifacts.foreach({ canonical =>
-      process(canonical)
+      try {
+        process(canonical)
+      } catch {
+        case NonFatal(ex) =>
+          ex.printStackTrace()
+      }
     })
 
   }

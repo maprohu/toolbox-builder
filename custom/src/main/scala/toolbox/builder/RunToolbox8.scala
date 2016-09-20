@@ -2,7 +2,7 @@ package toolbox.builder
 
 import java.io.File
 
-import toolbox.builder.toolbox8.{Akka8Modules, Servlet31Modules, Toolbox8Modules}
+import toolbox.builder.toolbox8.{Akka8Modules, Common8Modules, Servlet31Modules, Toolbox8Modules}
 
 /**
   * Created by pappmar on 29/08/2016.
@@ -21,7 +21,8 @@ object RunToolbox8 {
     Servlet31Modules.RunApi,
     Servlet31Modules.SampleRunner,
     Servlet31Modules.Webapp,
-    Akka8Modules.Stream
+    Akka8Modules.Stream,
+    Common8Modules.Tools
   )
 
   def main(args: Array[String]): Unit = {
