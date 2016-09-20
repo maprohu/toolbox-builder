@@ -50,7 +50,8 @@ object RunGenerateMaven {
     "com.github.nscala-time:nscala-time_2.11:jar:2.12.0",
     "io.github.lukehutch:fast-classpath-scanner:jar:2.0.3",
     "org.osgi:org.osgi.core:jar:5.0.0",
-    "javax.jms:jms-api:jar:1.1-rev-1"
+    "javax.jms:jms-api:jar:1.1-rev-1",
+    "com.oracle:wlfullclient:jar:10.3.6.0"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
