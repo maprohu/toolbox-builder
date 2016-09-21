@@ -55,7 +55,8 @@ object RunGenerateMaven {
     "org.osgi:org.osgi.core:jar:5.0.0",
     "javax.jms:jms-api:jar:1.1-rev-1",
     "com.oracle:wlfullclient:jar:10.3.6.0",
-    "com.lihaoyi:ammonite-ops_2.11:jar:0.7.7"
+    "com.lihaoyi:ammonite-ops_2.11:jar:0.7.7",
+    "org.scala-lang.modules:scala-xml_2.11:jar:1.0.6"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
