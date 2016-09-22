@@ -61,7 +61,11 @@ object RunGenerateMaven {
     "com.sun.xml.bind:jaxb-xjc:jar:2.2.11",
     "com.sun.xml.bind:jaxb-impl:jar:2.2.11",
     "com.sun.xml.bind:jaxb-core:jar:2.2.11",
-    "com.typesafe.slick:slick_2.11:jar:3.1.1"
+    "com.typesafe.slick:slick_2.11:jar:3.1.1",
+    "mysql:mysql-connector-java:jar:6.0.4",
+    "com.typesafe.slick:slick-codegen_2.11:jar:3.1.1",
+    "mysql:mysql-connector-java:jar:5.1.39",
+    "com.vividsolutions:jts-io:jar:1.14.0"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")

@@ -242,7 +242,7 @@ object Module {
             </modules>
           </project>
 
-        IO.write(
+        writeFile(
           new File(dir, "pom.xml"),
           pretty.format(xml)
         )
@@ -359,11 +359,22 @@ object Module {
 
         module.path.foldLeft(new File(dir, "src/main/scala"))(new File(_, _)).mkdirs()
 
-        IO.write(
+        writeFile(
           new File(dir, "pom.xml"),
           pretty.format(xml)
         )
       })
+  }
+
+  def writeFile(
+    file: File,
+    content: String
+  ) : Unit = {
+    if (!file.exists() || IO.read(file) != content) {
+      IO.write(file, content)
+    } else {
+      println(s"Skipping: ${file}")
+    }
   }
 }
 
