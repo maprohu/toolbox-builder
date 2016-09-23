@@ -65,7 +65,8 @@ object RunGenerateMaven {
     "mysql:mysql-connector-java:jar:6.0.4",
     "com.typesafe.slick:slick-codegen_2.11:jar:3.1.1",
     "mysql:mysql-connector-java:jar:5.1.39",
-    "com.vividsolutions:jts-io:jar:1.14.0"
+    "com.vividsolutions:jts-io:jar:1.14.0",
+    "com.h2database:h2:jar:1.4.192"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
