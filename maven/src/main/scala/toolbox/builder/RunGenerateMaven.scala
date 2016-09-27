@@ -45,12 +45,13 @@ object RunGenerateMaven {
     "org.scala-js:scalajs-dom_sjs0.6_2.11:jar:0.9.1",
     "com.github.wendykierp:JTransforms:jar:3.1",
     "org.scala-lang.modules:scala-swing_2.11:jar:2.0.0-M2",
-    "io.monix:monix_2.11:jar:2.0.1",
+    "io.monix:monix_2.11:jar:2.0.2",
     "de.heikoseeberger:akka-http-json4s_2.11:jar:1.9.0",
     "org.json4s:json4s-native_2.11:jar:3.4.0",
     "emsa:wupdata-common-shared:jar:1.0.4-SNAPSHOT",
     "emsa:wupdata-core:jar:1.0.5-SNAPSHOT",
     "com.github.nscala-time:nscala-time_2.11:jar:2.12.0",
+    "com.github.nscala-time:nscala-time_2.11:jar:2.14.0",
     "io.github.lukehutch:fast-classpath-scanner:jar:2.0.3",
     "org.osgi:org.osgi.core:jar:5.0.0",
     "javax.jms:jms-api:jar:1.1-rev-1",
@@ -64,9 +65,13 @@ object RunGenerateMaven {
     "com.typesafe.slick:slick_2.11:jar:3.1.1",
     "mysql:mysql-connector-java:jar:6.0.4",
     "com.typesafe.slick:slick-codegen_2.11:jar:3.1.1",
+    "com.typesafe.slick:slick-hikaricp_2.11:jar:3.1.1",
     "mysql:mysql-connector-java:jar:5.1.39",
     "com.vividsolutions:jts-io:jar:1.14.0",
-    "com.h2database:h2:jar:1.4.192"
+    "com.h2database:h2:jar:1.4.192",
+    "com.github.tototoshi:slick-joda-mapper_2.11:jar:2.2.0",
+    "joda-time:joda-time:jar:2.9.4",
+    "org.joda:joda-convert:jar:1.8.1"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
