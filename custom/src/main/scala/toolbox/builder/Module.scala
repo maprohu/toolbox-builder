@@ -349,7 +349,7 @@ object Module {
                       <groupId>{dep.moduleId.groupId}</groupId>
                       <artifactId>{dep.moduleId.artifactId}</artifactId>
                       <version>{dep.version.toString}</version>
-                      {dep.moduleId.classifier.map(c => <classifier>c</classifier>).toSeq}
+                      {dep.moduleId.classifier.map(c => <classifier>{c}</classifier>).toSeq}
                       {if (provided) <scope>provided</scope> else Seq()}
                     </dependency>
                   })
@@ -371,6 +371,7 @@ object Module {
     content: String
   ) : Unit = {
     if (!file.exists() || IO.read(file) != content) {
+      println(s"Writing: ${file}")
       IO.write(file, content)
     } else {
       println(s"Skipping: ${file}")
