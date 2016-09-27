@@ -71,7 +71,9 @@ object RunGenerateMaven {
     "com.h2database:h2:jar:1.4.192",
     "com.github.tototoshi:slick-joda-mapper_2.11:jar:2.2.0",
     "joda-time:joda-time:jar:2.9.4",
-    "org.joda:joda-convert:jar:1.8.1"
+    "org.joda:joda-convert:jar:1.8.1",
+    "com.badlogicgames.gdx:gdx-backend-lwjgl:jar:1.9.4",
+    "com.badlogicgames.gdx:gdx-platform:jar:natives-desktop:1.9.4"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
