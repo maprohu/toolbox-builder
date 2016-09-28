@@ -158,6 +158,30 @@ object Module {
     )
   }
 
+  def projectDir(
+    namedModule: NamedModule,
+    placeLookup: Map[RootModuleContainer, File]
+  ) : File = {
+    namedModule
+      .path
+      .tail
+      .foldLeft(
+        placeLookup(namedModule.container.root)
+      )(
+        new File(_, _)
+      )
+  }
+
+  def asPomDependency(
+    module: NamedModule
+  ) = {
+    <dependency>
+      <groupId>{module.groupId}</groupId>
+      <artifactId>{module.artifactId}</artifactId>
+      <version>{module.version}</version>
+    </dependency>
+  }
+
   def generate(
     roots: Seq[PlacedRoot],
     modules: Seq[NamedModule]
@@ -177,7 +201,7 @@ object Module {
 
     val pretty = new PrettyPrinter(300, 4)
 
-    val placeLookup =
+    val placeLookup : Map[RootModuleContainer, File] =
       roots
         .map(p => p.rootContainer -> p.rootDir)
         .toMap
@@ -264,11 +288,14 @@ object Module {
         val xml =
           <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <modelVersion>4.0.0</modelVersion>
-            <parent>
-              <groupId>{module.container.root.groupId}</groupId>
-              <artifactId>{module.container.artifactId}</artifactId>
-              <version>1.0.0</version>
-            </parent>
+            <groupId>{module.container.root.groupId}</groupId>
+            {
+//            <parent>
+//              <groupId>{module.container.root.groupId}</groupId>
+//              <artifactId>{module.container.artifactId}</artifactId>
+//              <version>1.0.0</version>
+//            </parent>
+            }
 
             <artifactId>{module.container.artifactId}-{module.name}</artifactId>
             <version>{module.version}</version>
@@ -392,6 +419,9 @@ class NamedModule(
 ) extends ContainedModule {
   def path : Seq[String] = container.path :+ name
   def parent: ModuleContainer = container
+  def groupId = container.root.groupId
+  def artifactId = path.mkString("-")
+  def pkg = path.mkString(".")
 }
 
 class JavaModule(
