@@ -73,7 +73,9 @@ object RunGenerateMaven {
     "joda-time:joda-time:jar:2.9.4",
     "org.joda:joda-convert:jar:1.8.1",
     "com.badlogicgames.gdx:gdx-backend-lwjgl:jar:1.9.4",
-    "com.badlogicgames.gdx:gdx-platform:jar:natives-desktop:1.9.4"
+    "com.badlogicgames.gdx:gdx-platform:jar:natives-desktop:1.9.4",
+    "org.jgrapht:jgrapht-core:jar:1.0.0",
+    "com.github.yannrichet:JMathPlot:jar:1.0.1"
   )
 
   val root = new File("../maven-modules/src/main/scala/mvn")
