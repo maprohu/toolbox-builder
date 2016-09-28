@@ -158,9 +158,11 @@ object Module {
     )
   }
 
+  type PlaceLookup = RootModuleContainer => File
+
   def projectDir(
     namedModule: NamedModule,
-    placeLookup: Map[RootModuleContainer, File]
+    placeLookup: PlaceLookup
   ) : File = {
     namedModule
       .path
@@ -172,13 +174,19 @@ object Module {
       )
   }
 
+  def asPomCoordinates(
+    module: NamedModule
+  ) = {
+    <groupId>{module.groupId}</groupId>
+    <artifactId>{module.artifactId}</artifactId>
+    <version>{module.version}</version>
+  }
+
   def asPomDependency(
     module: NamedModule
   ) = {
     <dependency>
-      <groupId>{module.groupId}</groupId>
-      <artifactId>{module.artifactId}</artifactId>
-      <version>{module.version}</version>
+      {asPomCoordinates(module)}
     </dependency>
   }
 
