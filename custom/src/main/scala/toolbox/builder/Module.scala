@@ -7,6 +7,7 @@ import jartree.util.{CaseClassLoaderKey, CaseJarKey, HashJarKeyImpl, MavenJarKey
 import org.eclipse.aether.util.version.GenericVersionScheme
 import org.eclipse.aether.version.Version
 import sbt.io.IO
+import toolbox.builder.Module.DeployableModule
 
 import scala.xml.PrettyPrinter
 
@@ -174,8 +175,32 @@ object Module {
       )
   }
 
+  trait DeployableModule {
+    def groupId: String
+    def artifactId : String
+    def version: String
+  }
+
+  case class DeployableModuleImpl(
+    groupId: String,
+    artifactId : String,
+    version: String
+  ) extends DeployableModule
+
+  object DeployableModule {
+    implicit def key2deployable(key: CaseClassLoaderKey) : DeployableModule = key.jar match {
+      case m : MavenJarKeyImpl =>
+        DeployableModuleImpl(
+          m.groupId,
+          m.artifactId,
+          m.version
+        )
+      case _ => ???
+    }
+  }
+
   def asPomCoordinates(
-    module: NamedModule
+    module: DeployableModule
   ) = {
     <groupId>{module.groupId}</groupId>
     <artifactId>{module.artifactId}</artifactId>
@@ -183,7 +208,7 @@ object Module {
   }
 
   def asPomDependency(
-    module: NamedModule
+    module: DeployableModule
   ) = {
     <dependency>
       {asPomCoordinates(module)}
@@ -424,7 +449,7 @@ class NamedModule(
   val name: String,
   val version: String,
   val deps: Module*
-) extends ContainedModule {
+) extends ContainedModule with DeployableModule {
   def path : Seq[String] = container.path :+ name
   def parent: ModuleContainer = container
   def groupId = container.root.groupId
