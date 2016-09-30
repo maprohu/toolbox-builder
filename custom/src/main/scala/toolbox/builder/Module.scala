@@ -188,6 +188,15 @@ object Module {
   ) extends DeployableModule
 
   object DeployableModule {
+    implicit class Ops(module: DeployableModule) {
+      def toBundle : DeployableModule = {
+        DeployableModuleImpl(
+          groupId = module.groupId,
+          artifactId = s"${module.artifactId}-bundle",
+          version = module.version
+        )
+      }
+    }
     implicit def key2deployable(key: CaseClassLoaderKey) : DeployableModule = key.jar match {
       case m : MavenJarKeyImpl =>
         DeployableModuleImpl(
