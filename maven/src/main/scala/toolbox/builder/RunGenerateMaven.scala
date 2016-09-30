@@ -15,12 +15,12 @@ import scala.util.control.NonFatal
 object RunGenerateMaven {
 
   val artifacts = Seq(
-    //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api:jar:2.2.2",
-    //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi:jar:2.2.2",
-    //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven:jar:2.2.2",
-    //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi-maven:jar:2.2.2",
-    //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:jar:2.2.2",
-    //    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven-archive:jar:2.2.2",
+    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api:jar:2.2.2",
+    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi:jar:2.2.2",
+    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven:jar:2.2.2",
+    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi-maven:jar:2.2.2",
+    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:jar:2.2.2",
+    "org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven-archive:jar:2.2.2",
     "com.typesafe.akka:akka-stream_2.11:2.4.9",
     "com.typesafe.akka:akka-slf4j_2.11:2.3.15",
     "javax.servlet:servlet-api:jar:2.5",
