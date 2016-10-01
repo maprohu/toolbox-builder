@@ -2,7 +2,7 @@ package toolbox.builder
 
 import java.io.File
 
-import toolbox.builder.toolbox6.{Servlet25Modules, Toolbox6Modules, VisModules}
+import toolbox.builder.toolbox6.{JarTreeModules, Servlet25Modules, Toolbox6Modules, VisModules}
 
 /**
   * Created by pappmar on 29/08/2016.
@@ -17,6 +17,11 @@ object RunToolbox6 {
 
   val Modules = Seq(
     Toolbox6Modules.Common,
+    JarTreeModules.Api,
+    JarTreeModules.Util,
+    JarTreeModules.Impl,
+    JarTreeModules.ServletApi,
+    JarTreeModules.Servlet,
     Servlet25Modules.SingleApi,
     Servlet25Modules.RunApi,
     Servlet25Modules.SampleRunner,

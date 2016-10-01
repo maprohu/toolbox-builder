@@ -80,7 +80,7 @@ case class MavenModuleVersion(
   override def moduleId: MavenModuleId = mavenModuleId
 }
 
-class Module(
+case class Module(
   val version: ModuleVersion,
   val deps: Seq[Module],
   val provided : Boolean = false
