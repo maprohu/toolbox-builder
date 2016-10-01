@@ -17,11 +17,14 @@ object RunToolbox6 {
 
   val Modules = Seq(
     Toolbox6Modules.Common,
+    Toolbox6Modules.Logging,
     JarTreeModules.Api,
     JarTreeModules.Util,
     JarTreeModules.Impl,
     JarTreeModules.ServletApi,
     JarTreeModules.Servlet,
+    JarTreeModules.Framework,
+    JarTreeModules.Testing,
     Servlet25Modules.SingleApi,
     Servlet25Modules.RunApi,
     Servlet25Modules.SampleRunner,

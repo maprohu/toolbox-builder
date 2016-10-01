@@ -15,22 +15,11 @@ object Toolbox6Modules {
     mvn.`com.lihaoyi:scalarx_2.11:jar:0.3.1`
   )
 
-
-
-
-//  object JarTree extends ScalaModule(
-//    "jartree",
-//    "1.0.0-SNAPSHOT",
-//    mvn.`commons-io:commons-io:jar:2.5`,
-//    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api:jar:2.2.2`,
-//    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi:jar:2.2.2`,
-//    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven:jar:2.2.2`,
-//    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-spi-maven:jar:2.2.2`,
-//    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:jar:2.2.2`,
-//    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven-archive:jar:2.2.2`
-//  )
-
-
+  object Logging extends ScalaModule(
+    "logging",
+    "1.0.0-SNAPSHOT",
+    mvn.`com.typesafe.scala-logging:scala-logging_2.11:jar:3.4.0`
+  )
 
 }
 
@@ -48,7 +37,9 @@ object JarTreeModules {
   object Util extends ScalaModule(
     "util",
     "1.0.0-SNAPSHOT",
-    Api
+    Api,
+    mvn.`commons-io:commons-io:jar:2.5`,
+    mvn.`commons-codec:commons-codec:jar:1.10`
 //    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven:jar:2.2.2`
   )
 
@@ -58,8 +49,6 @@ object JarTreeModules {
     Api,
     Util,
 //    mvn.`org.eclipse.aether:aether-util:jar:1.1.0`,
-    mvn.`commons-codec:commons-codec:jar:1.10`,
-    mvn.`commons-io:commons-io:jar:2.5`,
     mvn.`com.typesafe.scala-logging:scala-logging_2.11:jar:3.4.0`
   )
 
@@ -74,8 +63,23 @@ object JarTreeModules {
     "1.0.0-SNAPSHOT",
     Impl,
     ServletApi,
+    Toolbox6Modules.Logging,
     mvn.`io.monix:monix-execution_2.11:jar:2.0.2`,
     mvn.`com.lihaoyi:upickle_2.11:jar:0.4.2`,
     mvn.`ch.qos.logback:logback-classic:jar:1.1.7`
+  )
+
+  object Framework extends ScalaModule(
+    "framework",
+    "1.0.0-SNAPSHOT",
+    Api,
+    ServletApi
+  )
+
+  object Testing extends ScalaModule(
+    "testing",
+    "1.0.0-SNAPSHOT",
+    Api,
+    ServletApi
   )
 }
