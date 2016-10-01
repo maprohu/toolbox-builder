@@ -48,8 +48,8 @@ object JarTreeModules {
   object Util extends ScalaModule(
     "util",
     "1.0.0-SNAPSHOT",
-    Api,
-    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven:jar:2.2.2`
+    Api
+//    mvn.`org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven:jar:2.2.2`
   )
 
   object Impl extends ScalaModule(
@@ -57,9 +57,10 @@ object JarTreeModules {
     "1.0.0-SNAPSHOT",
     Api,
     Util,
-    mvn.`org.eclipse.aether:aether-util:jar:1.1.0`,
+//    mvn.`org.eclipse.aether:aether-util:jar:1.1.0`,
     mvn.`commons-codec:commons-codec:jar:1.10`,
-    mvn.`commons-io:commons-io:jar:2.5`
+    mvn.`commons-io:commons-io:jar:2.5`,
+    mvn.`com.typesafe.scala-logging:scala-logging_2.11:jar:3.4.0`
   )
 
   object ServletApi extends ScalaModule(
@@ -74,6 +75,7 @@ object JarTreeModules {
     Impl,
     ServletApi,
     mvn.`io.monix:monix-execution_2.11:jar:2.0.2`,
-    mvn.`com.lihaoyi:upickle_2.11:jar:0.4.2`
+    mvn.`com.lihaoyi:upickle_2.11:jar:0.4.2`,
+    mvn.`ch.qos.logback:logback-classic:jar:1.1.7`
   )
 }
