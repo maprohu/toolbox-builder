@@ -1,6 +1,5 @@
 package toolbox.builder.toolbox8
 
-import toolbox.builder.toolbox6.Toolbox6Modules
 import toolbox.builder.{JavaModule, ScalaModule, SubModuleContainer}
 
 /**
@@ -28,7 +27,7 @@ object Servlet31Modules {
     "1.0.0-SNAPSHOT",
     SingleApi,
     RunApi,
-    Toolbox6Modules.Common,
+//    Toolbox6Modules.Common,
     mvn.`jartree:jartree-impl:jar:1.0.0-SNAPSHOT`,
     mvn.`com.typesafe.scala-logging:scala-logging_2.11:jar:3.4.0`,
     mvn.`com.lihaoyi:upickle_2.11:jar:0.4.2`,

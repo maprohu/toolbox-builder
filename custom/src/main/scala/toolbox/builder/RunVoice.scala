@@ -2,7 +2,6 @@ package toolbox.builder
 
 import java.io.File
 
-import toolbox.builder.toolbox6.{Servlet25Modules, Toolbox6Modules, VisModules}
 import toolbox.builder.voice.VoiceModules
 
 /**

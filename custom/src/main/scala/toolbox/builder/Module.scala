@@ -2,7 +2,6 @@ package toolbox.builder
 
 import java.io.File
 
-import _root_.jartree.ClassLoaderKey
 import jartree.util.{CaseClassLoaderKey, CaseJarKey, HashJarKeyImpl, MavenJarKeyImpl}
 import org.eclipse.aether.util.version.GenericVersionScheme
 import org.eclipse.aether.version.Version
