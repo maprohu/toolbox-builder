@@ -2,7 +2,8 @@ package toolbox.builder
 
 import java.io.File
 
-import jartree.util.{CaseClassLoaderKey, CaseJarKey, HashJarKeyImpl, MavenJarKeyImpl}
+import jartree.util.{CaseJarKey, HashJarKeyImpl, MavenJarKeyImpl}
+import maven.modules.utils.MavenCentralModule
 import org.eclipse.aether.util.version.GenericVersionScheme
 import org.eclipse.aether.version.Version
 import sbt.io.IO
@@ -137,7 +138,7 @@ object Module {
 
   }
 
-  implicit def classLoaderKey2Module(clk: CaseClassLoaderKey) : Module = {
+  implicit def classLoaderKey2Module(clk: MavenCentralModule) : Module = {
     new Module(
       jarKey2ModuleIdVersion(clk.jar),
       clk.dependenciesSeq.map(classLoaderKey2Module)
@@ -196,7 +197,7 @@ object Module {
         )
       }
     }
-    implicit def key2deployable(key: CaseClassLoaderKey) : DeployableModule = key.jar match {
+    implicit def key2deployable(key: MavenCentralModule) : DeployableModule = key.jar match {
       case m : MavenJarKeyImpl =>
         DeployableModuleImpl(
           m.groupId,
