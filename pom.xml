@@ -74,7 +74,7 @@
 
     <modules>
         <!--<module>maven</module>-->
-        <module>custom</module>
+        <!--<module>custom</module>-->
         <module>scalajs</module>
         <module>portfolio</module>
         <module>organizer</module>
